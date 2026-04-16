@@ -14,13 +14,11 @@ class LinkedList:
     # INSERT METHODS
     # --------------------------
     def insert_at_front(self, data):
-        """Insert a new node at the beginning (O(1))"""
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
 
     def insert_at_end(self, data):
-        """Insert a new node at the end (O(n))"""
         new_node = Node(data)
         if not self.head:
             self.head = new_node
@@ -32,36 +30,23 @@ class LinkedList:
         current.next = new_node
 
     # --------------------------
-    # RECURSIVE SUM
+    # RECURSIVE SUM (TEST EXPECTS THIS NAME)
     # --------------------------
-    def sum_list(self):
-        """Public method to start recursion"""
+    def recursive_sum(self):
         return self._sum_recursive(self.head)
 
     def _sum_recursive(self, node):
-        """
-        Base case: if node is None → return 0
-        Recursive case: node.data + sum of rest
-        """
         if node is None:
             return 0
         return node.data + self._sum_recursive(node.next)
 
     # --------------------------
-    # RECURSIVE SEARCH
+    # RECURSIVE SEARCH (TEST EXPECTS THIS NAME)
     # --------------------------
-    def search(self, target):
-        """Public method"""
+    def recursive_search(self, target):
         return self._search_recursive(self.head, target)
 
     def _search_recursive(self, node, target):
-        """
-        Base case:
-            - node is None → False
-            - node.data == target → True
-        Recursive case:
-            search in next node
-        """
         if node is None:
             return False
         if node.data == target:
@@ -69,19 +54,12 @@ class LinkedList:
         return self._search_recursive(node.next, target)
 
     # --------------------------
-    # RECURSIVE REVERSE
+    # RECURSIVE REVERSE (THIS FIXES YOUR ERROR)
     # --------------------------
-    def reverse(self):
-        """Reverse the linked list in-place"""
+    def recursive_reverse(self):
         self.head = self._reverse_recursive(self.head)
 
     def _reverse_recursive(self, node):
-        """
-        Base case:
-            - empty list OR last node → return node
-        Recursive case:
-            reverse rest and fix pointers
-        """
         if node is None or node.next is None:
             return node
 
@@ -96,38 +74,9 @@ class LinkedList:
     # PRINT LIST
     # --------------------------
     def print_list(self):
-        """Print list in readable format"""
         current = self.head
         elements = []
         while current:
             elements.append(str(current.data))
             current = current.next
         print(" -> ".join(elements) if elements else "Empty list")
-
-
-# --------------------------
-# MAIN / TESTING
-# --------------------------
-if __name__ == "__main__":
-    ll = LinkedList()
-
-    # Insert sample data
-    ll.insert_at_front(10)
-    ll.insert_at_front(20)
-    ll.insert_at_front(30)
-    ll.insert_at_end(5)
-
-    print("Initial list:")
-    ll.print_list()
-
-    # Sum
-    print("\nSum of all IDs:", ll.sum_list())
-
-    # Search
-    print("\nSearch for 20:", ll.search(20))
-    print("Search for 99:", ll.search(99))
-
-    # Reverse
-    ll.reverse()
-    print("\nReversed list:")
-    ll.print_list()
